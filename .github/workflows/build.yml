@@ -123,6 +123,13 @@ jobs:
               </application>
           </manifest>
           EOF_MANIFEST
+          mkdir -p src/main/res/values
+          cat > src/main/res/values/strings.xml <<'EOF_STRINGS'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <string name="guard_desc">Keeps regulated apps closed unless a session is active, and blocks the Recents screen.</string>
+          </resources>
+          EOF_STRINGS
           mkdir -p $(dirname src/main/res/xml/guard_config.xml)
           cat > src/main/res/xml/guard_config.xml <<'EOF_GUARD'
           <?xml version="1.0" encoding="utf-8"?>
@@ -130,7 +137,7 @@ jobs:
               android:accessibilityEventTypes="typeWindowStateChanged"
               android:accessibilityFeedbackType="feedbackGeneric"
               android:canRetrieveWindowContent="false"
-              android:description="Keeps regulated apps closed unless a session is active, and blocks the Recents screen."
+              android:description="@string/guard_desc"
               android:notificationTimeout="50" />
           EOF_GUARD
           mkdir -p $(dirname src/main/java/com/focus/launcher/MainActivity.kt)
